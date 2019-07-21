@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="apply">
+        <div v-if="true">
+            <input type="text" v-model="inputValue">
+            <button v-on:click="handleBtnClick">提交</button>
+            <ui>
+                <!-- <li v-for="entity in message">{{ entity }}</li> -->
+                <todo-item :message="entity" :index="index" v-for="(entity,index) in message"
+                    @delete="handlerItemClick"></todo-item>
+            </ui>
+        </div>
+    </div>
+
+
+    <script>
+        var TodoItem = {
+            props: ['message', 'index'],
+            template: "<li @click='handlerItemClick'>{{ message }}</li>",
+            methods: {
+                handlerItemClick: function() {
+                    this.$emit('delete', this.index)
+                }
+            }
+        }
+        var apply = new Vue({
+            el: "#apply",
+            components: {
+                TodoItem: TodoItem
+            },
+            data: {
+                message: [],
+                inputValue: ''
+            },
+            methods: {
+                handleBtnClick: () => { //注意箭头函数的vue method this 不指向实例,要用名字指向
+                    apply.message.push(apply.inputValue)
+                    apply.inputValue = ''
+                },
+                handlerItemClick: (index) => {
+                    apply.message.splice(index, 1)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
