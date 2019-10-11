@@ -78,3 +78,6 @@
 ```html
 <v-select multiple v-model="entity.brandIds" :options="brandList" label="text" :value="id"></v-select>
 ```
+
+https://blog.csdn.net/justry_deng/article/details/81042379
+https://blog.csdn.net/justry_deng/article/details/91569132
